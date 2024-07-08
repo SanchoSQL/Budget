@@ -22,7 +22,7 @@ for keyword, category in category_dict.items():
 
 df['Category'].replace('nan', 'Shopping', inplace=True)
 
-# convert category csv to df then dict
+# convert category csv to dict and apply categories
 
 sub_category_dict = subcategories.set_index('SubCategory').to_dict()['Mapped Value']
 

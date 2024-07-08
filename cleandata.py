@@ -52,8 +52,8 @@ ncu_df.drop(['Transaction Number','Check Number','Memo','Amount Debit','Amount C
 cashapp_df['Date'] = cashapp_df['Date'].str.replace('CST|CDT', '', regex=True) # remove tz for formatting
 cashapp_df['Date'] = cashapp_df['Date'].apply(pd.to_datetime)                  #convert to date
 cashapp_df['Date'] = cashapp_df['Date'].dt.strftime('%m/%d/%Y')                #re-format to match other dfs
-#remove certain transactions 
-cashapp_df = cashapp_df[~cashapp_df['Transaction Type'].isin(['Bitcoin Buy','Bitcoin Sale', 'Bitcoin Boost','Stock Sell','Stock Buy','Boost Payment'])]
+# option to remove certain transactions 
+# cashapp_df = cashapp_df[~cashapp_df['Transaction Type'].isin(['Bitcoin Buy','Bitcoin Sale', 'Bitcoin Boost','Stock Sell','Stock Buy','Boost Payment'])]
 # Create a new 'Description' column in cashapp_df combining Transaction Type, Notes, and Name
 cashapp_df['Description'] = cashapp_df['Transaction Type'] + ' ' + cashapp_df['Notes'].fillna(cashapp_df['Name of sender/receiver']).fillna('')
 # Convert the 'Description' column to uppercase
@@ -82,6 +82,8 @@ df = df[pd.to_datetime(df['Date']).dt.year >= 2023]
 df['Date'] = pd.to_datetime(df['Date'])
 df['year_month'] = df['Date'].dt.strftime('%Y-%m')
 df['month_day'] = df['Date'].dt.strftime('%m-%d')
+df['week'] = df['Date'].dt.strftime('%V')
+df['year'] = df['Date'].dt.strftime('%Y')
 
 def transaction_data():
     data = df  
